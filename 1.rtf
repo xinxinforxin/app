@@ -1,0 +1,749 @@
+{\rtf1\ansi\ansicpg936\cocoartf1404
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset134 STHeitiSC-Light;\f2\fnil\fcharset134 PingFangSC-Regular;
+\f3\fnil\fcharset0 Georgia;}
+{\colortbl;\red255\green255\blue255;\red29\green133\blue25;\red110\green32\blue13;\red186\green0\blue17;
+\red98\green147\blue254;\red100\green14\blue47;\red14\green14\blue255;\red134\green19\blue62;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww38200\viewh18740\viewkind0
+\deftab866
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf2 \CocoaLigature0 //
+\f1 \'b7\'fe\'ce\'f1\'c6\'f7\'cd\'b7\'b5\'d8\'d6\'b7
+\f0 \cf0 \
+\cf3 #define SERVER_HEAD @\cf4 "https://trest.yeamoney.cn"\cf3 \
+\cf0  \
+\cf2 //
+\f1 \'b2\'e2\'ca\'d4\'b7\'fe\'ce\'f1\'c6\'f7\'b5\'d8\'d6\'b7
+\f0 \cf0 \
+\cf3 #define SERVER_HEAD_TEST @\cf4 "https://trest.yeamoney.cn"\cf3 \
+\cf0 \
+\cf2 //1.
+\f1 \'d7\'a2\'b2\'e1\'b5\'d8\'d6\'b7
+\f0  post ok\cf0 \
+\cf3 #define ENROLL_STEP3 [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/register"\cf3 ]\
+\cf0 	params:\
+		mobile    string   not null\
+		passwd	  string   not null\
+	response:\
+		success: \
+			\{\
+    			token_type: 'bearer',\
+    			access_token: this.accessToken,\
+				expires_in: ***,\
+				refresh_token: ***\
+  			\}\
+		fail:\
+			\{\
+				code: 400        //
+\f2 \'c7\'eb\'c7\'f3\'b2\'ce\'ca\'fd\'b4\'ed\'ce\'f3\'b5\'c8\'b5\'c8
+\f0 \
+			\}\
+			or\
+		   
+\f2 \'a3\'fb\
+				code: 401       //invalid_token\
+			\'a3\'fd\
+			or\
+		    \'a3\'fb\
+				code: 503         //server_error\
+			\'a3\'fd\
+			or \
+			\{\
+				code: 500       //other error\
+			\}
+\f0 \
+	javaInterface:/user\
+\cf2 //2.
+\f1 \'b5\'c7\'c2\'bc\'b5\'d8\'d6\'b7
+\f0  post ok\cf0 \
+\cf3 #define LOGIN [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/login"\cf3 ]\
+	params:\
+			mobile:   string   not null\
+			passwd:    string  not null\
+			client_id       not null\
+			client_secret     string  not null\
+	response:\
+\cf0 		success: \
+			\{\
+    			token_type: 'bearer',\
+    			access_token: ****,\
+				expires_in: ***,\
+				refresh_token: ***\
+  			\}\
+		fail:\
+			\{\
+				code: 400        //
+\f2 \'c7\'eb\'c7\'f3\'b2\'ce\'ca\'fd\'b4\'ed\'ce\'f3\'b5\'c8\'b5\'c8
+\f0 \
+			\}\
+			or\
+		   
+\f2 \'a3\'fb\
+				code: 401       //invalid_token\
+			\'a3\'fd\
+			or\
+		    \'a3\'fb\
+				code: 503         //server_error\
+			\'a3\'fd\
+			or \
+			\{\
+				code: 500       //other error\
+			\}
+\f0 \cf3 \
+\cf0 	javaInterface:/user/login\
+\cf2 //3.
+\f1 \'a3\'a8\'b7\'c7\'b5\'c7\'c2\'bd\'d7\'b4\'cc\'ac\'cf\'c2\'a3\'a9\'d5\'d2\'bb\'d8\'b5\'c7\'c2\'bd\'c3\'dc\'c2\'eb
+\f0  POST\cf0 \
+\cf3 #define FIND_LOGINPWD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/find_pwd"\cf3 ]\
+\cf0 	params:\
+		mobile     not null\
+		newPasswd    not null\
+	response:\
+		success:\
+			\{\
+				code: 0,\
+				detail: null,\
+				value: User\
+			\}\
+		fail: \
+			\{\
+				code: ****\
+			\}\
+	javaInterface: /user/pwd\
+\cf2 //4.
+\f1 \'a3\'a8\'b5\'c7\'c2\'bd\'d7\'b4\'cc\'ac\'cf\'c2
+\f0 ,
+\f1 \'cf\'c8\'bd\'f8\'d0\'d0
+\f0 token
+\f1 \'c8\'cf\'d6\'a4\'a3\'a9\'d0\'de\'b8\'c4\'b5\'c7\'c2\'bd\'c3\'dc\'c2\'eb
+\f0  POST\cf0 \
+\cf3 #define CHANGE_PWD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/change_pwd"\cf3 ]\
+\cf0 	params:\
+		passwd      not null\
+		newPasswd     not null\
+		user          not null  (json
+\f2 \'b8\'f1\'ca\'bd\'c0\'ef\'c3\'e6\'d3\'d0
+\f0 id)\
+	response:\
+		\
+			\{\
+				code: 0/-133/-111/-112,\
+				detail: **,\
+				value: **\
+			\}\
+	javaInterface: /user/pwd\
+\cf2 //5.
+\f1 \'a3\'a8\'b5\'c7\'c2\'bd\'d7\'b4\'cc\'ac\'cf\'c2
+\f0 ,
+\f1 \'cf\'c8\'bd\'f8\'d0\'d0
+\f0 token
+\f1 \'c8\'cf\'d6\'a4\'a3\'a9\'d0\'de\'b8\'c4\'bd\'bb\'d2\'d7\'c3\'dc\'c2\'eb
+\f0  POST\cf0 \
+\cf3 #define CHANGE_PAYPWD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/change_pay_pwd"\cf3 ]\
+\cf0 	params:\
+		name        not null\
+		ic          not null\
+		passed      not null\
+		newPasswd   not null\
+	response:\
+		success:\
+			\{\
+				checkUser: \{userInfo\},\
+				changePwd: \{***\}\
+			\}\
+    javaInterface: /user/paypwd/\
+\cf2 //6.
+\f1 \'ca\'d7\'d2\'b3\'d0\'c5\'cf\'a2
+\f0 (get, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /index)\cf0 \
+\cf3 #define INDEX [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/index"\cf3 ]\
+  \
+\cf0 \
+\cf2 //7.
+\f1 \'bb\'f1\'c8\'a1\'d0\'c2\'b5\'c4
+\f0 token
+\f1 \'d6\'b5
+\f0  post /oauth/token\cf0 \
+\cf3 #define GAIN_NEW_ACCESS_TOKEN [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/oauth/token"\cf3 ]\
+\cf0 \
+\cf2 //8.(token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'d3\'c3\'bb\'a7\'d0\'c5\'cf\'a2
+\f0  get\cf0 \
+\cf3 #define USER_INFO [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/finance"\cf3 ]\
+	params:\
+		access_token        not null\
+	response:\
+		\{\
+			user_info: \{**\},\
+			tickets: \{**\},\
+			invest: \{**\},\
+			order_unpay: \{***\}\
+		\}\
+	\cf0 javaInterface: \cf3 	/ticket/search\
+					/commonquery/querywithargs/investedList\
+					/commonquery/querywithargs/orderByCondition\
+\cf0 	\
+\cf2 //9.(token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'d4\'f6\'bc\'d3\'b0\'f3\'b6\'a8\'d2\'f8\'d0\'d0\'bf\'a8
+\f0  (post, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /account/addcard)\cf0 \
+\cf3 #define ACCOUNT_ADDCARD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/addcard"\cf3 ]\
+	params:\
+		userName   not null\
+		ic       not null\
+		mobile    not null\
+		cardNo     not null\
+		checkVerify    not null\
+	response:\
+		success:\
+		\cf5 	
+\f3 \cf6 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \{\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\partightenfactor0
+\cf6  					 "code": 0,\
+  					"detail": null,\
+  					"value": UserMoney\
+					\}
+\f0 \cf3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+\cf0 		fail:\
+			\{\
+				code: -2(
+\f2 \'d6\'a4\'bc\'fe\'b1\'bb\'cb\'fb\'c8\'cb\'d7\'a2\'b2\'e1
+\f0 )or -1(
+\f2 \'c6\'e4\'cb\'fb\'b4\'ed\'ce\'f3
+\f0 )\
+			\}\
+    javaApi: /user/addcard/\
+\cf2 //10.(token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'b3\'e4\'d6\'b5\'b2\'d9\'d7\'f7
+\f0  (post, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /trade/deposit)\cf0 \
+\cf3 #define TRADE_DEPOSIT [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade/deposit"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\
+		passwd        not null\
+		bankNo      not null\
+		amount        not null\
+        mobile       not null\
+   response:\
+		success:\
+			\{\
+				code: 0,\
+				detail: null,\
+				value: Trade\
+			\}\
+		fail:\
+			\{\
+				code: -133(
+\f2 \'c3\'dc\'c2\'eb\'b4\'ed\'ce\'f3
+\f0 )/-112(
+\f2 \'d3\'c3\'bb\'a7\'b1\'bb\'cb\'f8\'b6\'a8
+\f0 )
+\f2 \'a3\'af\'a3\'ad
+\f0 2
+\f2 \'a3\'a8\'c6\'e4\'cb\'fb\'b4\'ed\'ce\'f3\'a3\'a9
+\f0 \
+			\}\
+	javaInterface: /trade/deposit\
+\cf0 \
+\cf2 //11.
+\f1 \'bb\'f1\'c8\'a1\'b8\'f7\'d6\'d6\'b2\'fa\'c6\'b7\'a3\'ac\'b0\'b4\'c0\'e0\'d0\'cd\'b7\'d6\'c0\'e0\'c1\'d0\'b1\'ed\'a3\'a8
+\f0 GET
+\f1 \'c7\'eb\'c7\'f3\'a3\'ac\'b5\'d8\'d6\'b7
+\f0 :/product/list
+\f1 \'a3\'a9
+\f0 \cf0 \
+\cf2 //.
+\f1 \'b2\'fa\'c6\'b7\'c1\'d0\'b1\'ed\'a3\'a8
+\f0 get
+\f1 \'a3\'a9{\field{\*\fldinst{HYPERLINK "https://rest.yeamoney.cn/product/list/"}}{\fldrslt 
+\f0 \cf7 https://rest.yeamoney.cn/product/list/}}
+\f0 \{type\}?pageIndex=1&pageSize=15\cf0 \
+\cf3 #define PRODUCT_LIST [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/product/list"\cf3 ]\
+\cf0 	params:  null\
+	response:\
+		\{\
+			baoli_product: \{**\},\
+			huoqi_product: \{**\},\
+			dingqi_product: \{**\}\
+		\}\
+    javaApi: /commonquery/querynoargs/indexShowProduct \
+			 /product/search\
+\cf2 //12.
+\f1 \'b2\'fa\'c6\'b7\'d0\'c5\'cf\'a2\'cf\'ea\'c7\'e9\'a3\'ac\'a3\'a8
+\f0 GET
+\f1 \'c7\'eb\'c7\'f3\'a3\'ac\'b5\'d8\'d6\'b7
+\f0 :/product/\{product_type\}/\{product_id\}
+\f1 \'a3\'a9
+\f0 \cf0 \
+\cf3 #define PRODUCT_DETAIL [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/product"\cf3 ]\
+	params: \
+			\cf2 product_type    not null \cf3 \
+			\cf2 product_id   not null\
+	response:\
+			****\cf3 \
+\cf0 	javaApi: /commonquery/querywithargs/productDetail\
+\cf2 //13.(token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'c0\'ed\'b2\'c6\'c8\'af\'b9\'dc\'c0\'ed
+\f0  (get, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /account/ticket)\cf0 \
+\cf3 #define ACCOUNT_TICKET [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/ticket"\cf3 ]\
+	params:\
+			access_token        not null\
+	response:\
+			
+\f3 \cf6 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \{\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\partightenfactor0
+\cf6     					aaData:[Ticket, Ticket]\
+				      \}
+\f0 \cf3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+\cf0 	javaApi: /ticket/search\
+\cf2 //14.(token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'bb\'f1\'c8\'a1\'b8\'f7\'d6\'d6\'c8\'af\'cf\'ea\'c7\'e9
+\f0  (get, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /account/ticket/detail/:id)\cf0 \
+\cf3 #define ACCOUNT_TICKET_DETAIL [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/ticket/detail"\cf3 ]\
+	params:\
+		access_token        not null\
+		id    not null\
+	response:\
+			
+\f3 \cf6 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \{\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\partightenfactor0
+\cf6     					aaData:[Ticket, Ticket]\
+				      \}
+\f0 \cf3 \kerning1\expnd0\expndtw0 \CocoaLigature0 		\
+   javaApi:  \cf0 /ticket/search\cf3 \
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+\cf0 	\
+\cf2 //15.
+\f1 \'b7\'a2\'cb\'cd\'d1\'e9\'d6\'a4\'c2\'eb
+\f0  /account/cc?mobile=13538019919&type=zc\cf0 \
+\cf3 #define SERVER_SEND_VALIDATE_CODE [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/cc"\cf3 ]\
+\cf0 	params:\
+		type    not null    (zc/findLoginPwd/)\
+		mobile    not null\
+\cf2 //16. (token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'d2\'f8\'d0\'d0\'bf\'a8\'b9\'dc\'c0\'ed
+\f0  (get, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /account/card)\cf0 \
+\cf3 #define ACCOUNT_CARD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/card"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\
+	javaApi: /user/:id\cf0 \
+\cf2 //17.
+\f1 \'d5\'d2\'bb\'d8\'bd\'bb\'d2\'d7\'c3\'dc\'c2\'eb\'a3\'a8\'b5\'da\'d2\'bb\'b2\'bd\'a3\'ba\'d1\'e9\'d6\'a4\'d3\'c3\'bb\'a7\'d0\'c5\'cf\'a2\'a3\'a9\'a3\'a8
+\f0 post
+\f1 \'a3\'a9
+\f0 \cf0 \
+\cf3 #define ACCOUNT_CHECK_USER_INFO [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/check_user_info"\cf3 ]\
+	params:\
+		access_token        not null\
+		name     not null\
+		ic        not null\
+    response:\
+		\{\
+			code: 0\
+			\'85..\
+		\}\
+		\{\
+				code:'-1',\
+				detail:"
+\f2 \'d3\'c3\'bb\'a7\'c3\'fb\'bb\'f2\'c9\'ed\'b7\'dd\'d6\'a4\'b4\'ed\'ce\'f3
+\f0 "\
+		\}\
+\cf0 \
+\cf2 //18.
+\f1 \'d5\'d2\'bb\'d8\'bd\'bb\'d2\'d7\'c3\'dc\'c2\'eb\'a3\'a8\'b5\'da\'b6\'fe\'b2\'bd\'a3\'ba\'c9\'e8\'d6\'c3\'bd\'bb\'d2\'d7\'c3\'dc\'c2\'eb\'a3\'a9\'a3\'a8
+\f0 post
+\f1 \'a3\'a9
+\f0 modify_pay_pwd\cf0 \
+\cf3 #define ACCOUNT_MODIFY_PAY_PWD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/modify_pay_pwd"\cf3 ]\
+	params:\
+		access_token        not null\
+		newPasswd      not null\
+	responses:\
+		success:\
+		\cf8 	
+\f3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \{\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\partightenfactor0
+\cf8   						"code": 0,\
+  						"detail": null,\
+  						"value": UserMoney\
+					\}
+\f0 \cf3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+\cf0 	javaApi: /user/paypwd/\
+\cf2 ////19. 
+\f1 \'cf\'c2\'b6\'a9\'b5\'a5
+\f0  
+\f1 \'b5\'e3\'bb\'f7
+\f0  
+\f1 \'b0\'b4\'c5\'a5\'b4\'a5\'b7\'a2\'bb\'f1\'c8\'a1\'d0\'c5\'cf\'a2\'d2\'b3\'c3\'e6\'a3\'a8
+\f0  ++++++++  get
+\f1 \'a3\'a9
+\f0 order/\{order_id\}/pay\cf0 \
+\cf2 //#define ACCOUNT_ORDER_PRODUCTID_PAY [NSString stringWithFormat:@"%@%@", SERVER_HEAD, @"/order"]\cf0 \
+\
+\cf2 //20.(token 
+\f1 \'c8\'cf\'d6\'a4
+\f0 )
+\f1 \'d6\'a7\'b8\'b6\'b6\'a9\'b5\'a5\'d2\'b3\'c3\'e6
+\f0  
+\f1 \'bb\'f1\'c8\'a1\'ce\'aa
+\f0 get (++++++++++ 
+\f1 \'cc\'e1\'bd\'bb\'ce\'aa
+\f0 post, 
+\f1 \'b5\'d8\'d6\'b7
+\f0 : /order/\{order_id\}/pay) 
+\f1 \'d5\'e6\'ca\'b5\'d6\'a7\'b8\'b6
+\f0  
+\f1 \'b2\'d9\'d7\'f7
+\f0 \cf0 \
+\cf3 #define ACCOUNT_ORDER_ORDERID_PAY [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/order"\cf3 ]\
+	\
+	params: \
+		access_token        not null\
+		order_id    not null\
+	response:\
+		\{\
+			user_info: \{***\},\
+			order_info: \{**\},\
+			ticket: \{***\}\
+		\}\
+	javaApi: /commonquery/querywithargs/orderByCondition\
+			/ticket/search\
+\cf0 \
+\cf2 //21.
+\f1 \'b3\'e4\'d6\'b5\'a3\'a8
+\f0 post
+\f1 \'a3\'a9
+\f0 /trade/deposit\cf0 \
+\cf3 #define ACCOUNT_TRADE_DEPOSIT [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade/deposit"\cf3 ]\
+		\
+\cf0 \
+\cf2 //22.
+\f1 \'b3\'e4\'d6\'b5\'a1\'a2\'cc\'e1\'cf\'d6
+\f0  
+\f1 \'d2\'b3\'c3\'e6\'a3\'a8
+\f0 get
+\f1 \'a3\'a9
+\f0 /account/card\cf0 \
+\cf3 #define ACCOUNT_BANK_CARD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/card"\cf3 ]\
+	\
+		\
+\cf0 \
+\cf2 //23.
+\f1 \'cc\'e1\'cf\'d6\'a3\'a8
+\f0 post
+\f1 \'a3\'a9{\field{\*\fldinst{HYPERLINK "https://rest.yeamoney.cn/trade/withdraw"}}{\fldrslt 
+\f0 \cf7 https://rest.yeamoney.cn/trade/withdraw}}
+\f0 \cf0 \
+\cf3 #define ACCOUNT_TRADE_WITHDRAW [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade/withdraw"\cf3 ]\
+\cf0 	\cf3 params:\
+		access_token        not null\
+		passwd            not null\
+		bankNo				not null\
+		amount             not null\
+	response:\
+		success:\
+			\{\
+				code: 0,\
+				detail: null,\
+				value: trade\
+			\}\cf0 \
+		fail:\
+			\{\
+				code: -1(
+\f2 \cf3 \'ca\'a7\'b0\'dc
+\f0 \cf0 )/-113(
+\f2 \'c3\'dc\'c2\'eb\'b4\'ed\'ce\'f3
+\f0 )/-111(
+\f2 \'d3\'c3\'bb\'a7\'b1\'bb\'cb\'f8\'b6\'a8
+\f0 )\
+			\}\
+\cf2 //24.
+\f1 \'d7\'ca\'bd\'f0\'c3\'f7\'cf\'b8
+\f0 (get)/trade/list\cf0 \
+\cf3 #define ACCOUNT_TRADE_LIST [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade/list"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\
+	response:\
+		\{\
+			access_token        not null\
+		\}\cf0 \
+\cf2 //25.
+\f1 \'ca\'ea\'bb\'d8\'a3\'a8
+\f0 post
+\f1 \'a3\'a9
+\f0 trade/redeem\cf0 \
+\cf3 #define ACCOUNT_TRADE_REDEEM [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade/redeem"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\
+	response:\
+		\{\
+			user_info: \{***\},\
+			invest: \{***\}\
+		\}\cf0 \
+\cf2 //26.
+\f1 \'ce\'d2\'b5\'c4\'b2\'c6\'b8\'bb\'c1\'d0\'b1\'ed\'b7\'d6\'d2\'b3\'bd\'d3\'bf\'da\'a3\'a8\'ce\'d2\'b5\'c4\'b2\'c6\'b8\'bb\'d6\'d0\'b5\'c4\'cd\'b6\'d7\'ca\'c1\'d0\'b1\'ed\'a3\'a9
+\f0 finance + 10 
+\f1 \'cc\'f5\'ca\'fd\'be\'dd
+\f0 \cf0 \
+\cf3 #define ACCOUNT_FINANCE [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/finance"\cf3 ]  //you\
+\cf0 	\
+\cf2 //27.
+\f1 \'b2\'c6\'b8\'bb\'c1\'d0\'b1\'ed\'b5\'c4\'b7\'d6\'d2\'b3\'c7\'eb\'c7\'f3
+\f0 \cf0 \
+\cf2 //invest/myInvest?pageIndex=?&pageSize=?\cf0 \
+\
+\cf2 //28.
+\f1 \'cd\'b6\'d7\'ca\'bc\'c7\'c2\'bc
+\f0  
+\f1 \'b2\'fa\'c6\'b7\'b5\'c4\'cd\'b6\'d7\'ca\'bc\'c7\'c2\'bc\'a3\'a8
+\f0 get
+\f1 \'a3\'a9
+\f0 /product/type/detail/\{productId\}\cf0 \
+\cf3 #define PRODUCT_INVEST_LIST [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/producerct"\cf3 ]\
+\cf0 	params:\
+		id        not null\
+		type      not null\
+	response:\
+		//
+\f2 need test
+\f0 																			\
+\cf2 //29.
+\f1 \'cf\'c2\'b5\'a5
+\f0  /order/add post 
+\f1 \'c7\'eb\'c7\'f3\'a3\'ac
+\f0 \cf0 \
+\cf2 //  
+\f1 \'b4\'ab\'c8\'eb
+\f0   productId    amount      cycle      cycle
+\f1 \'d5\'e2\'b8\'f6\'d7\'d6\'b6\'ce\'cc\'d8\'b1\'f0\'d7\'a2\'d2\'e2\'a3\'ac
+\f0  0
+\f1 \'b1\'ed\'ca\'be\'bb\'ee\'c6\'da\'a3\'ac
+\f0  -1
+\f1 \'b1\'ed\'ca\'be\'b1\'a3\'c0\'ed\'a3\'ac
+\f0  30
+\f1 \'b5\'c4\'d5\'fb\'ca\'fd\'b1\'b6\'b1\'ed\'ca\'be\'b6\'a8\'c6\'da\'a3\'ac
+\f0  
+\f1 \'b1\'c8\'c8\'e7
+\f0  
+\f1 \'c4\'e3\'b8\'f8
+\f0 30
+\f1 \'a3\'ac\'b1\'ed\'ca\'be\'d3\'c3\'bb\'a7\'b9\'ba\'c2\'f2\'d2\'bb\'b8\'f6\'d4\'c2\'b5\'c4\'b6\'a8\'c6\'da\'a3\'ac
+\f0  60
+\f1 \'b1\'ed\'ca\'be\'d3\'c3\'bb\'a7\'b9\'ba\'c2\'f2
+\f0 2
+\f1 \'b8\'f6\'d4\'c2\'b5\'c4\'b6\'a8\'c6\'da
+\f0 \cf0 \
+\cf3 #define ACCOUNT_ORDER_ADD [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/order/add"\cf3 ]\
+\cf0 	params:\
+		productId        not null\
+		amount        not null\
+		cycle       not null\
+	response:\
+		\{\
+			createOrder: \{***\},\
+			user_info: \{***\},\
+			ticket: \{***\}\
+		\}\
+	javaApi:\
+		/order \
+		/user/\
+		/ticket/search\
+\cf2 //30.
+\f1 \'b5\'e3\'bb\'f7\'c8\'a1\'cf\'fb\'d6\'a7\'b8\'b6\'a3\'ac
+\f0   
+\f1 \'d6\'b4\'d0\'d0
+\f0  /order/cancel/\{order_id\} get
+\f1 \'c7\'eb\'c7\'f3
+\f0 \cf0 \
+\cf3 #define ACCOUNT_ORDER_CANCEL [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/order/cancel"\cf3 ]\
+\cf0 	params:\
+		order_id  not null\
+	response:\
+		need test\
+\cf2 //31.
+\f1 \'d2\'f8\'d0\'d0\'bf\'a8\'d6\'a7\'b8\'b6\'d1\'d3\'b3\'d9\'cf\'ec\'d3\'a6
+\f0  /trade/\{taradeNo\}\cf0 \
+\cf3 #define ACCOUNT_ORDER_PAY_RESPONSE [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade"\cf3 ]\
+\cf0 	params:\
+		type     not null\
+	response:\
+		need  responses\
+\cf2 //32.
+\f1 \'ce\'d2\'b5\'c4\'b2\'c6\'b8\'bb\'c1\'d0\'b1\'ed\'b7\'d6\'d2\'b3\'bd\'d3\'bf\'da\'a3\'a8\'ce\'d2\'b5\'c4\'b2\'c6\'b8\'bb\'d6\'d0\'b5\'c4\'cd\'b6\'d7\'ca\'c1\'d0\'b1\'ed\'a3\'a9
+\f0 invest/myInvest?pageIndex=?&pageSize=?\cf0 \
+\cf3 #define MYMONEY_MORE_DATA [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/invest/myInvest"\cf3 ]\
+\cf0 	params:\
+		pageIndex    not null\
+		pageSize      not null\
+	response:\
+		need  responses\
+\
+\cf2 //33.
+\f1 \'ca\'ea\'bb\'d8\'a3\'a8
+\f0 post
+\f1 \'a3\'a9
+\f0 trade/redeem\cf0 \
+\cf3 #define MYINVEST_REDEEM [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "trade/redeem"\cf3 ]\
+\cf0 	params:\
+		productNo     not null\
+		paypwd       not null\
+		amount     not null\
+	response:\
+		\{\
+\pard\tx566\tx866\pardeftab866\pardirnatural\partightenfactor0
+\cf0 				code: 0,\
+				detail: null,	\
+				value: Trade\
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+\cf0 		\}\
+		fail:\
+				\{\
+					code: -113/-1/-112\
+				\}\
+\cf2 //34.
+\f1 \'d0\'c2\'ca\'d6\'b1\'ea\'cf\'c2\'b5\'a5\'a3\'a8\'cf\'c2\'b5\'a5\'ba\'cd\'d6\'a7\'b8\'b6
+\f0  
+\f1 \'d2\'bb\'c6\'f0\'b2\'d9\'d7\'f7\'c1\'cb\'a3\'a9
+\f0 GET
+\f1 \'a3\'ba
+\f0 /ticket/\{type\}/\{status\}  type =4, status = 0\cf0 \
+\
+\cf3 #define NEW_USER_TICKET [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/ticket/4/0"\cf3 ]\
+\cf0 	params:\
+		type       not null\
+		status       not null\
+	javaApi:  /ticket/search\
+\cf2 //35.
+\f1 \'d0\'c2\'ca\'d6\'d0\'e9\'c4\'e2\'b1\'ea
+\f0  /order/virtualOrder  post
+\f1 \'c7\'eb\'c7\'f3\'a3\'ac
+\f0   
+\f1 \'b4\'ab\'c8\'eb
+\f0  productId 
+\f1 \'a3\'a8\'d0\'c2\'ca\'d6\'b1\'ea\'b5\'c4
+\f0 ID
+\f1 \'a3\'a9\'a3\'ac
+\f0  ticketId
+\f1 \'a3\'a8\'cc\'e5\'d1\'e9\'c8\'af\'b5\'c4
+\f0 ID
+\f1 \'a3\'a9
+\f0 \cf0 \
+\cf3 #define ORDER_VIRTUALORDER [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/order/virtualOrder"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\cf0 \
+		productId      productId\
+		ticketId     ticketId\
+		passwd      passwd\
+   need test\
+\cf2 //36.
+\f1 \'b6\'a8\'c6\'da\'a3\'ac\'b9\'fa\'b1\'a6\'a3\'ac\'d0\'c2\'ca\'d6
+\f0    
+\f1 \'cd\'b6\'d7\'ca\'cf\'ea\'c7\'e9\'b5\'f7\'d3\'c3
+\f0   /invested/detail/\{investId\},  
+\f1 \'b4\'f8
+\f0 token    get
+\f1 \'c7\'eb\'c7\'f3
+\f0 \cf0 \
+\cf3 #define INVEST_DETAIL [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/invest/detail"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\
+		investId    not null\
+	need test\cf0 \
+\cf2 //37.
+\f1 \'bb\'ee\'c6\'da
+\f0    
+\f1 \'cd\'b6\'d7\'ca\'cf\'ea\'c7\'e9\'b5\'f7\'d3\'c3
+\f0   /invest/hqDetail/\{investId\},  
+\f1 \'b4\'f8
+\f0 token    get
+\f1 \'c7\'eb\'c7\'f3
+\f0 \cf0 \
+\cf3 #define INVEST_HQ_DETAIL [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/invest/hqDetail"\cf3 ]\
+\cf0 	params:\
+		\cf3 access_token        not null\
+		investId    not null\
+	need test\cf0 \
+\cf2 //38.
+\f1 \'b0\'e6\'b1\'be\'b8\'fc\'d0\'c2
+\f0  /account/appversion?type=2 ios\cf0 \
+\cf3 #define VERSION_UPDATE [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/account/appversion"\cf3 ]\
+	params:\
+		type      not null\
+	javaApi: /version/search\
+\cf2 //39.
+\f1 \'bd\'bb\'d2\'d7\'bd\'e1\'b9\'fb\'c8\'b7\'c8\'cf
+\f0  /trade/tradeNo?type=1 
+\f1 \'bd\'bb\'d2\'d7\'ba\'c5\'a3\'ac\'b2\'fa\'c6\'b7\'c0\'e0\'d0\'cd
+\f0 \cf0 \
+\cf3 #define PAYMENT_RESULT [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/trade"\cf3 ]\
+\cf0 	params:\
+\cf3 		access_token        not null\cf0 \
+		tradeNo	not null\
+	\
+\cf2 //40.
+\f1 \'d7\'ca\'b2\'fa\'cd\'bc\'c6\'ac\'cd\'b7\'b5\'d8\'d6\'b7
+\f0  /zc/MRY6fUsVVrtKElN8SDTXCF9HWLXXFP8z/pjstyle\cf0 \
+\cf3 #define ASSET_IMAGES_HEAD @\cf4 "https://dn-yea-img.qbox.me"\cf3 \
+\cf0 \
+\cf2 //41.
+\f1 \'d0\'c2\'b0\'e6\'ce\'d2\'b5\'c4\'b2\'c6\'b8\'bb\'cd\'b6\'d7\'ca\'c1\'d0\'b1\'ed
+\f0   /invest/newInvest?\cf0 \
+\cf3 #define ACCOUNT_NEW_INVEST_LIST [NSString stringWithFormat:@\cf4 "%@%@"\cf3 , SERVER_HEAD, @\cf4 "/invest/newInvest"\cf3 ]\
+	params:\
+		access_token        not null\
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+
+\f2 \cf3 \'d1\'e9\'d6\'a4\'c3\'dc\'c2\'eb\'a3\'ba
+\f0 \
+	
+\f2 url\'a3\'ba/account/verifyTradePwd\
+	method: post\
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+
+\f0 \cf3 	params: \
+		passwd      not null\
+	\
+\pard\tx866\pardeftab866\pardirnatural\partightenfactor0
+
+\f2 \cf3 \'bd\'d3\'ca\'dc\'c1\'ac\'c1\'ac\'b3\'e4\'d6\'b5\'b7\'b5\'bb\'d8\'d0\'c5\'cf\'a2\'a3\'ba
+\f0 \
+	
+\f2 url\'a3\'ba\'a3\'af
+\f0 trade/rechargeMessage\
+	method: post\
+	
+\f2 \'d5\'e2\'ca\'c7\'c1\'ac\'c1\'ac\'b7\'c3\'ce\'ca\'ce\'d2\'c3\'c7\'b5\'c4\'bd\'d3\'bf\'da\'b0\'b4\'d5\'d5\'ce\'c4\'b5\'b5\'cb\'b5\'c3\'f7\'b2\'e9\'bf\'b4\'b2\'ce\'ca\'fd
+\f0 \
+\
+\
+	\
+	\
+}

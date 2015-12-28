@@ -1,0 +1,53 @@
+{
+	"mongoConfig": {
+        "host": "192.168.99.100",
+        "database": "yeamoney" //修改
+    },
+
+    "log4jsConfig": "path:./config/log4js_dev.json",
+    "restify": "http://127.0.0.1:9090",
+
+	"express": {
+		"view cache": false
+	},
+
+	"middleware": {
+		"static": {
+			"module": {
+				"arguments": ["path:./site"]
+			}
+		},
+
+		"session": {
+			"enabled": true,
+			"priority": 100,
+			"module": {
+				"name": "express-session",
+				"arguments": [{
+					"key": "",
+					"secret": "6de5191ab3c401bcb266dff913",
+					"cookie": {
+						"path": "/",
+						"httpOnly": true,
+						"maxAge": 1800000
+					},
+					"resave": true,
+					"saveUninitialized": true,
+					"proxy": null
+				}]
+			}
+		},
+
+		"switchOption": {
+			"enabled": true,
+			"priority": 120,
+			"module": {
+				"arguments": [{}]
+			}
+		},
+
+		"serverError": {
+			"enabled": false
+		}
+	}
+}

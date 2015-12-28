@@ -1,0 +1,8 @@
+<% if(locals.wx_config && locals.wx_share) { %>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+        wx.config(<%- JSON.stringify(locals.wx_config) %>);
+        var wx_share = <%- JSON.stringify(locals.wx_share) %>;
+</script>
+<script src="../static/wx_share.js?__inline"></script>
+<% } %>
