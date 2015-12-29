@@ -20,6 +20,18 @@
             "uri": "/views/doc/about.ejs",
             "type": "ejs"
         },
+        "doc/page/agreement-1.ejs": {
+            "uri": "/views/doc/agreement-1.ejs",
+            "type": "ejs"
+        },
+        "doc/page/agreement-10.ejs": {
+            "uri": "/views/doc/agreement-10.ejs",
+            "type": "ejs"
+        },
+        "doc/page/agreement-service.ejs": {
+            "uri": "/views/doc/agreement-service.ejs",
+            "type": "ejs"
+        },
         "doc/page/faq.ejs": {
             "uri": "/views/doc/faq.ejs",
             "type": "ejs"
@@ -34,6 +46,14 @@
             "deps": [
                 "doc/static/about.css"
             ]
+        },
+        "doc/static/agreement-10.js": {
+            "uri": "http://192.168.6.79:3900/static/doc/agreement-10_d41d8cd.js",
+            "type": "js"
+        },
+        "doc/static/agreement.css": {
+            "uri": "http://192.168.6.79:3900/static/doc/agreement_0159d33.css",
+            "type": "css"
         },
         "doc/static/faq.css": {
             "uri": "http://192.168.6.79:3900/static/doc/faq_bccd4d3.css",

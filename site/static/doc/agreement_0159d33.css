@@ -1,0 +1,30 @@
+section{
+    margin: 1.2em;
+    font-size: 1em;
+}
+p,h3{
+    line-height: 1.2em;
+    margin: 0.5em 0;
+}
+article{
+    margin:1em 0;
+}
+p.indent{
+    text-indent: 2em;
+}
+hr{
+     margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+ol>li{
+    text-align: left;
+    font-size: 1em;
+    font-weight: normal;
+    margin-bottom: 1em;
+    line-height: 1.2em;
+}
+.clear{
+    clear: both;
+}

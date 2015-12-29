@@ -12,4 +12,13 @@ module.exports = function(router) {
     router.get('/dd', function(req, res) {
         res.render('error/500');
     });
+    router.get('/agreement/1', function(req, res) {
+        res.render('doc/agreement-1');
+    });
+    router.get('/agreement/2', function(req, res) {
+        res.render('doc/agreement-service');
+    });
+    router.get('/agreement/10', function(req, res) {
+        res.render('doc/agreement-10');
+    });
 };
