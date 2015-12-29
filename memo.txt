@@ -1,0 +1,92 @@
+需求文档    http://ahuwhd.axshare.com 
+yeamail    https://mail.mxhichina.com/alimail/
+           elaine.liao@yeamoney.cn YEAmail1109
+          yeafinance
+
+192.169.4.253
+
+
+finder 
+前往
+连接服务器
+smb://192.168.2.204
+elaine.liao
+Elaine789
+
+Sygroup
+JyF821736-jYf  
+
+https://mail.shengyefinance.com/owa/
+elaine.liao@shengyefinance.com
+elaine.liao.syf
+Elaine789
+
+SygroupGuest
+Sygt2015888
+
+https://www.teambition.com/projects?status=signup-success&from=invite
+
+欣欣 
+elaine
+
+http://code.umiit.cn
+ssh://elaine.liao@code.umiit.cn:29418/yeamoney/activity.git
+elaine.liao
+yeafinance
+
+
+172800
+
+
+homebrew
+
+brew install node
+
+npm install -g grunt-cli
+
+
+客服电话                      4000876678
+营销QQ企业账号           800106787
+QQ交流群群号            “椰子投资交流群” 498973844、“椰子至尊vip交流会” 317487023
+微信多客服                “椰子金融服务”
+客服邮箱                    kefu@yeamoney.cn
+
+
+FTP地址  98.126.169.20  端口21
+用户名  baijiangang
+密码 198699
+上传文件的话，里面的文件数据可全部删除
+
+
+
+
+
+
+http://jira.umiit.cn/
+
+liaoxinxin 
+umi1234
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
