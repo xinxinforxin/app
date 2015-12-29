@@ -1,19 +1,19 @@
 {
     "res": {
         "common/static/main.css": {
-            "uri": "http://127.0.0.1:3600/static/common/main_8a5c291.css",
+            "uri": "http://192.168.6.79:3900/static/common/main_8a5c291.css",
             "type": "css"
         },
         "common/static/pure-min.css": {
-            "uri": "http://127.0.0.1:3600/static/common/pure-min_9a108ac.css",
+            "uri": "http://192.168.6.79:3900/static/common/pure-min_9a108ac.css",
             "type": "css"
         },
         "common/static/wx_share.js": {
-            "uri": "http://127.0.0.1:3600/static/common/wx_share_89de8eb.js",
+            "uri": "http://192.168.6.79:3900/static/common/wx_share_89de8eb.js",
             "type": "js"
         },
         "common/static/zepto.min.js": {
-            "uri": "http://127.0.0.1:3600/static/common/zepto.min_ab35b54.js",
+            "uri": "http://192.168.6.79:3900/static/common/zepto.min_ab35b54.js",
             "type": "js"
         },
         "doc/page/about.ejs": {
@@ -25,22 +25,22 @@
             "type": "ejs"
         },
         "doc/static/about.css": {
-            "uri": "http://127.0.0.1:3600/static/doc/about_3c9ac5c.css",
+            "uri": "http://192.168.6.79:3900/static/doc/about_3c9ac5c.css",
             "type": "css"
         },
         "doc/static/about.js": {
-            "uri": "http://127.0.0.1:3600/static/doc/about_b688efd.js",
+            "uri": "http://192.168.6.79:3900/static/doc/about_b688efd.js",
             "type": "js",
             "deps": [
                 "doc/static/about.css"
             ]
         },
         "doc/static/faq.css": {
-            "uri": "http://127.0.0.1:3600/static/doc/faq_d41d8cd.css",
+            "uri": "http://192.168.6.79:3900/static/doc/faq_bccd4d3.css",
             "type": "css"
         },
         "doc/static/faq.js": {
-            "uri": "http://127.0.0.1:3600/static/doc/faq_aefc122.js",
+            "uri": "http://192.168.6.79:3900/static/doc/faq_6e24cec.js",
             "type": "js",
             "deps": [
                 "doc/static/faq.css"

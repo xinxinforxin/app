@@ -9,4 +9,7 @@ module.exports = function(router) {
     router.get('/about', function(req, res) {
         res.render('doc/about');
     });
+    router.get('/dd', function(req, res) {
+        res.render('error/500');
+    });
 };

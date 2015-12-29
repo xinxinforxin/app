@@ -24,13 +24,25 @@ module.exports = function(router){
 
 		//用户名，密码，client_id, client_secret 由前台提供
 		req.body['username'] = req.body.mobile;
-		req.body['password'] = req.body.passwd;
-		req.body['grant_type'] = 'password';
+        req.body['password'] = req.body.passwd;
+        req.body['grant_type'] = 'password';
 
 		logger.trace(req.body);
-
-		oauth.grant()(req,res,next);
-
+		client.post_form('/user/login', {
+			mobile: req.body.mobile,
+			passwd: req.body.passwd
+		}, function(er, rq, rs, result) {
+			if (er) { 
+				return res.send({code: 500,msg: 'inner error',data: er});
+			};
+			if(result.code == -113){
+				return res.send(result);
+			}
+			if(result.code == -112){
+				return res.send(result);
+			} 
+			oauth.grant()(req,res,next);
+		})
 	});
 
 	//添加，修改手势密码
@@ -470,11 +482,11 @@ module.exports = function(router){
 		        }, function(err, v) {
 		           logger.trace('err',err);
 		           logger.trace('v',v);
-		           logger.trace('验证码| ' + req.query.mobile + ' | ' + code);
+		           logger.trace('验证码| ' + req.query.mobile + ' | ' + result.code);
 		        });
 			}
 			res.send(result);
-		});
+		});  
 	});
 	
 	//解绑银行卡--fanxing

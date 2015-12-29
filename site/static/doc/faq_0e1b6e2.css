@@ -1,0 +1,58 @@
+.faqSection{
+    width: 100%;
+    height: auto;
+    margin-left: 0;
+    background-color: #fff;
+
+}
+.header{
+    width:96%;
+    margin-left: 2%;
+    margin-top:0px;
+    border-bottom:1px solid #eeeeee;
+    height:3em;
+    border:1px solid red;
+}
+.content{
+    margin:0.5em;
+    width:100%;
+    height:auto;
+}
+.titleLine{
+    width:100%;
+    height: auto;
+}
+.titleLine div{
+    display: inline;
+}
+.redCircle{
+    width:0.5em;
+    height:0.5em;
+    border-radius: 0.5em;
+    background-color: red;
+}
+.title1Div{
+    position: absolute;
+    width:100%;
+    border: 1px solid orange;
+}
+.title1{
+    z-index: 2;
+    width:8em;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2em;
+    border:1px solid green;
+
+}
+.titile2{
+    color:red;
+    font-size: 1em;
+}
+.contectfont{
+    color:gray;
+    width:100%;
+    height:auto;
+    line-height: 1em;
+    font-size: 0.8em;
+}

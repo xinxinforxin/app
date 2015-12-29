@@ -1,3 +1,3 @@
 fis.config.set('roadmap.domain',
 	process.env.NODE_ENV == 'development' ?
-	'http://127.0.0.1:3600' : 'http://yeamoney-app');
+	'http://192.168.6.79:3900' : 'http://yeamoney-app');
