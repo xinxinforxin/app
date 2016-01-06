@@ -1,8 +1,7 @@
 需求文档    http://ahuwhd.axshare.com 
 yeamail    https://mail.mxhichina.com/alimail/
-           elaine.liao@yeamoney.cn YEAmail1109
+           elaine.liao@yeamoney.cn Develop05
           yeafinance
-
 192.169.4.253
 
 
@@ -11,7 +10,7 @@ finder
 连接服务器
 smb://192.168.2.204
 elaine.liao
-Elaine789
+Develop05
 
 Sygroup
 JyF821736-jYf  
@@ -32,7 +31,7 @@ elaine
 http://code.umiit.cn
 ssh://elaine.liao@code.umiit.cn:29418/yeamoney/activity.git
 elaine.liao
-yeafinance
+
 
 
 172800
@@ -65,12 +64,22 @@ FTP地址  98.126.169.20  端口21
 http://jira.umiit.cn/
 
 liaoxinxin 
-umi1234
+Develop05
 
 
 
 
-
+测试环境pc官网程序yea-pc：https://th5.yeamoney.cn/
+引导下载页面程序yea-mobile：http://tm.yeaplus.com:3902/start/guide
+banner页面程序yea-mobile:http://tm.yeaplus.com:3902/start//banner
+二维码页面程序yea-mobile:http://tm.yeaplus.com:3902/start/qrpage
+协议页面程序yea-app:
+椰子nodejs后台-  09:43:51
+关于我们的页面程序yea-app:https://trest.yeamoney.cn/doc/about
+常见问题页面程序yea-app:https://trest.yeamoney.cn/doc/faq
+协议页面程序yea-app:https://trest.yeamoney.cn/doc/agreement/1
+https://trest.yeamoney.cn/doc/agreement/2
+https://trest.yeamoney.cn/doc/agreement/10
 
 
 

@@ -53,9 +53,9 @@ module.exports = function(grunt) {
     qiniu: {
       sync: {
         options: {
-          ACCESS_KEY: '',
-          SECRET_KEY: '',
-          bucket: '',
+          ACCESS_KEY: '6QArCHZMxK-KhQSGvSA86ZvQlQwtfAKWq3C9bqzM',
+          SECRET_KEY: 'SLBOBlP4teJv6e5uREFZKj8aMm60byv_7CDXusk0',
+          bucket: 'yea-img',
           prefix: 'static/',
           path: __dirname
         },
