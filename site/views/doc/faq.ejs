@@ -189,9 +189,9 @@ hr {
 <body>
 
     <section class="faqSection">
-        <div class="header downLine">
+        <div class="header downLine ninty">
             <span class="title1">关于椰子理财</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">椰子理财是什么？</span></div>
@@ -215,9 +215,9 @@ hr {
         </div>
     </section>
     <section class="faqSection">
-        <div class="header downLine">
+        <div class="header downLine ninty-one">
             <span class="title1">体验金相关</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">体验金是什么？</span></div>
@@ -245,9 +245,9 @@ hr {
         </div>
     </section>
     <section class="faqSection">
-        <div class="header downLine">
+        <div class="header downLine ninty-two">
             <span class="title1">零钱计划相关</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">零钱计划是什么？</span></div>
@@ -291,9 +291,9 @@ hr {
         </div>
     </section>
     <section class="faqSection">
-        <div class="header downLine">
+        <div class="header downLine ninty-three">
             <span class="title1">国宝计划相关</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">国宝计划是什么？</span></div>
@@ -342,9 +342,9 @@ hr {
         </div>
     </section>
      <section class="faqSection">
-        <div class="header downLine">
+        <div class="header downLine ninty-four">
             <span class="title1">银行卡相关</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">可以绑定多张银行卡吗？</span></div>
@@ -376,7 +376,7 @@ hr {
      <section class="faqSection">
         <div class="header downLine">
             <span class="title1">资金转入问题</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">信用卡能不能进行投资？</span></div>
@@ -421,7 +421,7 @@ hr {
      <section class="faqSection">
         <div class="header downLine">
             <span class="title1">提现问题</span>
-            <img src="http://192.168.6.79:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
+            <img src="http://192.168.6.107:3900/static/doc/image/arrow_4b3c983.png"  alt="" class="arrow upArrow">
         </div>
         <div class="content">
             <div class="titleLine"><i class="redCircle"> </i><span class="title2">提现有金额要求吗？</span></div>
@@ -482,6 +482,64 @@ $('.header').tap(function(){
     $(this).next().toggle();
     $(this).find('img').toggleClass('upArrow');
     $(this).find('img').toggleClass('downArrow');
-});</script>
+});
+$('.ninty').tap(function(){
+    $.ajax({
+    url: "/doc/list/mobile?type=90&start=0&length=110",
+    method: "GET",
+    success: function(data){
+        var addhtml = successData(data.aaData);
+        $('.ninty').next().html(addhtml);
+        }
+    });
+});
+$('.ninty-one').tap(function(){
+    $.ajax({
+    url: "/doc/list/mobile?type=91&start=0&length=110",
+    method: "GET",
+    success: function(data){
+        var addhtml = successData(data.aaData);
+        $('.ninty-one').next().html(addhtml);
+        }
+    });
+});
+$('.ninty-two').tap(function(){
+    $.ajax({
+    url: "/doc/list/mobile?type=92&start=0&length=110",
+    method: "GET",
+    success: function(data){
+        var addhtml = successData(data.aaData);
+        $('.ninty-two').next().html(addhtml);
+        }
+    });
+});
+$('.ninty-three').tap(function(){
+    $.ajax({
+    url: "/doc/list/mobile?type=93&start=0&length=110",
+    method: "GET",
+    success: function(data){
+        var addhtml = successData(data.aaData);
+        $('.ninty-three').next().html(addhtml);
+        }
+    });
+});
+$('.ninty-four').tap(function(){
+    $.ajax({
+    url: "/doc/list/mobile?type=94&start=0&length=110",
+    method: "GET",
+    success: function(data){
+        var addhtml = successData(data.aaData);
+        $('.ninty-four').next().html(addhtml);
+        }
+    });
+});
+function successData(data){
+    var addhtml = '';
+    for (var i = 0 ;i < data.length; i++) {
+            addhtml += '<div class="titleLine"><i class="redCircle"> </i><span class="title2">'+data[i].title+'</span></div><p class="contectfont">'+data[i].detail+'</p>';
+            }
+    return addhtml;
+
+}</script>
 </body>
 </html>

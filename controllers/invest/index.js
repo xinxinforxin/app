@@ -47,6 +47,12 @@ module.exports = function(router){
 			logger.trace('活期已投资详情 返回数据data为------>', result[0]);
 			//活期已投资的详情，查询到的记录都属于同一个invest_id的内容
 			//计算累计收益，各个记录的origin_profit，vip_profit，ticket_profit相加
+
+			if(result[0] == undefined){
+				logger.trace("#####  返回数据data为undefined");
+				return;
+			}
+
 			var profit = 0;
 			for(var i = 0; i<result.length; i++){
 				if(!result[i].originProfit){
@@ -68,6 +74,7 @@ module.exports = function(router){
 				var createDate = result[0]['createTime'].substr(0,10);//购买产品时间
 
 				var day = moment(curDate).diff(moment(createDate), 'days') +1;
+				result[0]['record_counter'] = day;
 				console.info("*********",day);
 				if(parseFloat(result[0]['curRate']) >= 12){//大于等于12，就不会再增加利率
 					result[0]['rate'] = parseFloat(result[0]['curRate']);
@@ -139,11 +146,20 @@ module.exports = function(router){
 
 						var day = moment(curDate).diff(moment(createDate), 'days') +1;
 
+ 						data[i]['record_counter'] = day;
+
 						if(parseInt(data[i]['curRate']) >= 12){//大于等于12，就不会再增加利率
 							data[i]['cur_rate'] = parseInt(data[i]['curRate']);
 						}else{
-							data[i]['cur_rate'] = parseInt(data[i]['curRate']) + parseInt(day/30*0.5);//活期每30天加0.5%的利率
+							data[i]['cur_rate'] = parseFloat(data[i]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
 						}
+					}else{
+						var curDate = moment().format('YYYY-MM-DD');//当前时间
+						var createDate = data[i]['createTime'].substr(0,10);//购买产品时间
+
+						var day = moment(curDate).diff(moment(createDate), 'days') +1;
+
+ 						data[i]['record_counter'] = day; 
 					}
 				}
 			}

@@ -261,6 +261,7 @@ module.exports = function(router){
 	router.get('/list', oauth.authorise(), function(req, res) {
 		var condition = {
 			"SEQ@userId" : req.user.id,
+			"INE@status" : 3,
 			"DORDER": "time"
 		}
 		logger.trace('交易流水请求参数 ----->', condition);
@@ -282,9 +283,9 @@ module.exports = function(router){
 
 		var code = -101;
 		logger.trace(' 传入 type ----->', _type);
-		var t = valid(req.query, ['type','amount','action','payType'], res);
+		var t = valid(req.query, ['type','payType'], res);
 		if(!t){
-			return false;
+			return false; 
 		}
 
 		var _data = {

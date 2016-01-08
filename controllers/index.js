@@ -7,7 +7,7 @@ var logger = log4js.getLogger();
 module.exports = function(router) {
 
 	router.get('/', function(req, res) {
-		res.render('/account/login');
+		res.send('ok');
 	});
 
 	router.all('/oauth/token', oauth.grant());
