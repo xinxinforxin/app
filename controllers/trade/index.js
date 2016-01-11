@@ -112,7 +112,7 @@ module.exports = function(router){
 		        }, function(err, v) {
 		           logger.trace('err',err);
 		           logger.trace('v',v);
-		           logger.trace('验证码| ' + req.query.mobile + ' | ' + code);
+		           logger.trace('验证码|' + code);
 		        });
 			}
 			res.send(data);

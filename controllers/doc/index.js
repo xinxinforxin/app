@@ -19,23 +19,36 @@ module.exports = function(router) {
         res.render('doc/agreement-service');
     });
     router.get('/agreement/10', oauth.authorise(), function(req, res) {
-        var t = valid(req.query, ['investId','rate','access_token'], res);
-        if(!t){
-            return false;
+        if(!req.query.investId){
+            return res.render("doc/agreement-10",{ data: {productSaleAmount: '300000',
+                curRate: '10.00000',
+                userIc: '120101198712017237',
+                borrower: '{"name": "test"}',
+                userName: '陶治山',
+                endDate: '2016-03-31',
+                investCreateTime: '2016-01-05 13:35:14',
+                investAmount: '100',
+                mobile: '10000001000',
+                rate: '10.0000' }});
+        }else{
+            var t = valid(req.query, ['investId','rate','access_token'], res);
+            if(!t){
+                return false;
+            }
+            var condition = {
+                "investId": req.query.investId
+            }   
+            logger.trace('protocol:', condition);
+            client.get("/commonquery/querywithargs/myProtocol",{
+                condition:JSON.stringify(condition)
+            }, function(err, rq, rs, data){
+                if(data.length == 0)
+                    return res.send("404");
+                data[0].rate = req.query.rate;
+                logger.trace('protocol back:', data[0]);
+                res.render('doc/agreement-10',{data: data[0]});
+            })
         }
-        var condition = {
-            "investId": req.query.investId
-        }   
-        logger.trace('protocol:', condition);
-        client.get("/commonquery/querywithargs/myProtocol",{
-            condition:JSON.stringify(condition)
-        }, function(err, rq, rs, data){
-            if(data.length == 0)
-                return res.send("404");
-            data[0].rate = req.query.rate;
-            logger.trace('protocol back:', data[0]);
-            res.render('doc/agreement-10',{data: data[0]});
-        })
     });
     router.get('/test', function(req, res) {
         res.render('doc/test');

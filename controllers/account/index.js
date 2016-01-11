@@ -363,7 +363,7 @@ module.exports = function(router){
                                if(parseFloat(data[i]['curRate']) >= 12){//大于等于12，就不会再增加利率
                                    data[i]['cur_rate'] = parseFloat(data[i]['curRate']);
                                }else{
-                                   data[i]['cur_rate'] = parseFloat(data[i]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
+                                   data[i]['cur_rate'] = parseFloat(data[i]['curRate']) + parseInt(day/30)*0.5 > 12 ? 12 : parseFloat(data[i]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
                                }
                                
                            }
@@ -550,12 +550,38 @@ module.exports = function(router){
    
    router.get('/bindcard_cc',oauth.authorise(),  function(req, res) {
            logger.trace('bindcard_cc :', req.query.mobile);
-           var t = valid(req.query, ['mobile'], res);
-           if(!t){
-               return false;
-           }
-   
-          res.send(data);
+
+
+          client.get("/gnete?mobile=" + req.query.mobile,{},function(er, rq, rs, result){
+            logger.trace("############"+result.code+"--"+result.value);
+
+            if(result.code == '101'){
+                
+                logger.trace('发送绑定银行卡短信----'+result.value+"--"+"addBank");
+                var code = result.value;
+
+               /*sms.send(req.query.mobile, "addBank", {
+                  'code': code
+               }, function(err, v) {
+                  logger.trace('err',err);
+                  logger.trace('v',v);
+                  logger.trace('验证码| ' + req.query.mobile + ' | ' + result.value);
+                  res.send({
+                      no: code
+                     });
+               });*/
+
+               res.send({
+                      no: code
+                     });
+               
+             }else{
+                res.send({
+                      no: null
+                     });
+             }
+
+          });
        
    });
    
@@ -599,7 +625,6 @@ module.exports = function(router){
                    });    
                }
            })
- 
        }else if(req.query.type == 'findLoginPwd'){
            client.get("/user/userStatus/" + req.query.mobile,{},function(er, rq, rs, result){
                logger.trace('findLoginPwd结果:',result);
@@ -620,10 +645,41 @@ module.exports = function(router){
                });
            })
  
+       }else if( req.query.type == 'addBank' ){             //绑定银行卡的时候，发送的验证码
+
+          logger.debug("######## addBank");
+
+          client.get("/gnete?mobile=" + req.query.mobile,{},function(er, rq, rs, result){
+            logger.trace("############"+result.code+"--"+result.value);
+
+            if(result.code == '100'){
+                
+                logger.trace('发送绑定银行卡短信----'+result.value+"--"+req.query.type);
+                var code = result.value;
+
+               /*sms.send(req.query.mobile, req.query.type, {
+                  'code': code
+               }, function(err, v) {
+                  logger.trace('err',err);
+                  logger.trace('v',v);
+                  logger.trace('验证码| ' + req.query.mobile + ' | ' + result.value);
+                  res.send({
+                      no: code
+                     });
+               });*/
+
+
+               res.send({
+                      no: code
+                });
+             }else{
+                res.send(result);
+             }
+
+          });
+
        }else{
- 
-           
-           logger.trace('发送短信');
+            logger.trace('发送短信');
            var code = random.v_code();
            sms.send(req.query.mobile, req.query.type, {
               'code': code
@@ -676,7 +732,23 @@ module.exports = function(router){
        client.get("/version/search", {
            condition:JSON.stringify(data)
        },function(err, rq, rs, data){
-           res.send(data.aaData[0]);
+          logger.trace("-#####---"+data.aaData[0].url);   
+          if( data.aaData[0] == undefined){
+            res.send(data.aaData[0]);
+          }else{
+            var _url = data.aaData[0].url;
+            var url_array = new Array();
+            url_array = _url.split(",");  
+
+            var randomNum = Math.random()*(url_array.length);
+            var index = parseInt(randomNum,10);
+
+
+            data.aaData[0].url = url_array[index];
+            res.send(data.aaData[0]);
+          }
+          
+           
        })
    });
    

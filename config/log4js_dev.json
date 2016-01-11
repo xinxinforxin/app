@@ -2,10 +2,6 @@
   "appenders": [{
     "type": "console"
   }, {
-    "host": "120.24.242.119",
-    "port": 5000,
-    "type": "logstashUDP"
-  }, {
     "type": "logLevelFilter",
     "level": "ERROR",
     "appender": {

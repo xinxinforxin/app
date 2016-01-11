@@ -36,7 +36,7 @@ module.exports = function(router){
 			return false;
 		}
 		var data = {
-			"investId": req.params.id,
+			"investId": req.params.id, 
 			"userId": req.user.id
 		}
 		logger.trace('活期已投资详情 接收参数为------>', data);
@@ -60,7 +60,8 @@ module.exports = function(router){
 				}
 				profit = parseFloat(result[i].originProfit) + parseFloat(result[i].vipProfit) + parseFloat(result[i].ticketProfit) + profit;
 			} 
-			if(!result[0].originProfit){
+			//如果原始收益不存在， 或者  已经是完全赎回状态  则 昨日收益为 0
+			if(!result[0].originProfit || result[0].status == 21){
 				//昨日收益
 				result[0]['lastProfit'] = 0;
 			}else{
@@ -79,9 +80,16 @@ module.exports = function(router){
 				if(parseFloat(result[0]['curRate']) >= 12){//大于等于12，就不会再增加利率
 					result[0]['rate'] = parseFloat(result[0]['curRate']);
 				}else{
-					result[0]['rate'] = parseFloat(result[0]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
+					result[0]['rate'] = parseFloat(result[0]['curRate']) + parseInt(day/30)*0.5 >= 12 ? 12 : parseFloat(result[0]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
 				}
 				
+			}else if(result[0].status == 21){//完全赎回
+
+				var repayTime = result[0]['repayTime'] != null ? result[0]['repayTime'].substr(0,10) : moment().format('YYYY-MM-DD');
+				var createDate = result[0]['createTime'].substr(0,10);//购买产品时间
+				var day = moment(repayTime).diff(moment(createDate), 'days') +1;
+				result[0]['record_counter'] = day;
+
 			}
 			logger.trace('活期已投资详情 返回数据data为------>', result[0]);
 			res.send(result[0]);
@@ -108,9 +116,9 @@ module.exports = function(router){
 					var day = moment(curDate).diff(moment(createDate), 'days') +1;
 
 					if(parseInt(data[i]['curRate']) >= 12){//大于等于12，就不会再增加利率
-						data[i]['cur_rate'] = parseInt(data[i]['curRate']);
+						data[i]['cur_rate'] = parseFloat(data[i]['curRate']);
 					}else{
-						data[i]['cur_rate'] = parseInt(data[i]['curRate']) + parseInt(day/30*0.5);//活期每30天加0.5%的利率
+						data[i]['cur_rate'] = parseFloat(data[i]['curRate']) + parseInt(day/30*0.5) >= 12 ? 12 : parseFloat(result[0]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
 					}
 				}
 			}
@@ -127,7 +135,7 @@ module.exports = function(router){
 		// type: 1 表示 保理，新手  2 表示  活期，定期
 		// status: 0 表示 在途， 1表示还款
 		 var condition = {
-			"userId":req.user.id,
+			"userId": req.user.id,
 			"type": req.query.type,
 			"status": req.query.status,
 			"pageIndex": req.query.pageIndex -1,
@@ -138,9 +146,18 @@ module.exports = function(router){
 			condition:JSON.stringify(condition)
 		}, function(err, rq, rs, data){
 			logger.trace('myInvest back:', data);
+			var list = [];//数组
+			if(req.query.type == '1'){
+				list = data;
+			}
 			if(req.query.type == '2'){
+				
+				//因为一个活期invest 有可能进行多次赎回， 和repayment表关联后，可能会出现多条重复记录
 				for(var i = 0; i<data.length; i++){
 					if(data[i].cycle == 0 && (data[i].status == 0 || data[i].status == 20)){ //活期在途或者部分赎回，多加一个字段，显示利率
+						if(i != 0 && data[i].status == 20 && data[i].investId == data[i-1].investId){//如果是部分赎回，则 只保留一条记录即可
+							continue;
+						}
 						var curDate = moment().format('YYYY-MM-DD');//当前时间
 						var createDate = data[i]['createTime'].substr(0,10);//购买产品时间
 
@@ -151,19 +168,38 @@ module.exports = function(router){
 						if(parseInt(data[i]['curRate']) >= 12){//大于等于12，就不会再增加利率
 							data[i]['cur_rate'] = parseInt(data[i]['curRate']);
 						}else{
-							data[i]['cur_rate'] = parseFloat(data[i]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
+
+							data[i]['cur_rate'] = parseInt(data[i]['curRate']) + parseInt(day/30*0.5) >= 12 ? 12 : parseInt(data[i]['curRate']) + parseInt(day/30)*0.5;//活期每30天加0.5%的利率
 						}
-					}else{
-						var curDate = moment().format('YYYY-MM-DD');//当前时间
+						list.push(data[i]);
+					}else if(data[i].cycle == 0 && data[i].status == 21){//完全赎回，
+						if(i != 0 && data[i].status == 20 && data[i].investId == data[i-1].investId){//如果是完全赎回，则 只保留第一条记录即可，存储过程已经降序排列
+							continue;
+						}
+						var repayTime = data[i]['repaymentTime'] != null ? data[i]['repaymentTime'].substr(0,10) : moment().format('YYYY-MM-DD');
+						// var curDate = moment().format('YYYY-MM-DD');//当前时间
 						var createDate = data[i]['createTime'].substr(0,10);//购买产品时间
 
-						var day = moment(curDate).diff(moment(createDate), 'days') +1;
+						var day = moment(repayTime).diff(moment(createDate), 'days') +1;
 
  						data[i]['record_counter'] = day; 
+ 						list.push(data[i]);
+					}
+				}
+			}else if(req.query.type == '1' ){
+				for( var i = 0; i<data.length; i++ ){
+					if( data[i]['cycle'] == '5'){
+						var curDate = moment().format('YYYY-MM-DD');
+						var createDate = data[i]['createTime'].substr(0,10);//购买产品时间
+						var day = moment(curDate).diff(moment(createDate), 'days');
+
+						var record_counter = (5-day);
+						data[i]['record_counter'] = record_counter;
+						logger.trace("---record_counter--"+record_counter);
 					}
 				}
 			}
-			res.send(data);
+			res.send(list);
 		})
 	});
 

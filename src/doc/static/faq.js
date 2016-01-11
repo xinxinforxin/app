@@ -10,7 +10,7 @@ $('.ninty').tap(function(){
     method: "GET",
     success: function(data){
         var addhtml = successData(data.aaData);
-        $('.ninty').next().html(addhtml);
+        $('.ninty').next().html(addhtml.replace(/[\r\n]/g,""));
         }
     });
 });
@@ -20,7 +20,7 @@ $('.ninty-one').tap(function(){
     method: "GET",
     success: function(data){
         var addhtml = successData(data.aaData);
-        $('.ninty-one').next().html(addhtml);
+        $('.ninty-one').next().html(addhtml.replace(/[\r\n]/g,""));
         }
     });
 });
@@ -30,7 +30,7 @@ $('.ninty-two').tap(function(){
     method: "GET",
     success: function(data){
         var addhtml = successData(data.aaData);
-        $('.ninty-two').next().html(addhtml);
+        $('.ninty-two').next().html(addhtml.replace(/[\r\n]/g,""));
         }
     });
 });
@@ -40,7 +40,7 @@ $('.ninty-three').tap(function(){
     method: "GET",
     success: function(data){
         var addhtml = successData(data.aaData);
-        $('.ninty-three').next().html(addhtml);
+        $('.ninty-three').next().html(addhtml.replace(/[\r\n]/g,""));
         }
     });
 });
@@ -50,7 +50,7 @@ $('.ninty-four').tap(function(){
     method: "GET",
     success: function(data){
         var addhtml = successData(data.aaData);
-        $('.ninty-four').next().html(addhtml);
+        $('.ninty-four').next().html(addhtml.replace(/[\r\n]/g,""));
         }
     });
 });

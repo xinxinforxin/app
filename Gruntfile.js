@@ -73,6 +73,12 @@ module.exports = function(grunt) {
         files: ['src/**/*'],
         tasks: ['fis:compile']
       }
+    },
+
+     release: {
+      options: {
+        npm: false
+      }
     }
   });
 
@@ -83,6 +89,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-umi-layout');
   grunt.loadNpmTasks('grunt-umi-qiniu');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-release');
 
   // Default task.
   grunt.registerTask('deploy', ['fis:deploy', 'qiniu']);

@@ -5,7 +5,7 @@
     },
 
     "log4jsConfig": "path:./config/log4js_dev.json",
-    "restify": "http://192.168.6.94:9090",
+    "restify": "http://127.0.0.1:9090",
 
 	"express": {
 		"view cache": false
