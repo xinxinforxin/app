@@ -60,7 +60,7 @@ module.exports = function(grunt) {
           path: __dirname
         },
         files: {
-          'logs/qiniu.json': ['site/static/']
+          'src/qiniu.json': ['site/static/']
         }
       }
     },
@@ -75,11 +75,12 @@ module.exports = function(grunt) {
       }
     },
 
-     release: {
+    release: {
       options: {
         npm: false
       }
     }
+
   });
 
   // These plugins provide necessary tasks.

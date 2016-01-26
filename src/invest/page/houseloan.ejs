@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--inline[../../common/page/head.ejs]-->
+		<title>测试</title>
+		<link rel="stylesheet" type="text/css" href="../static/index.css?__inline">
+	</head>
+
+	<body>
+		<script src="../static/index.js?__inline"></script>
+		<script src="../../common/static/zepto.min.js?_inline"></script>
+		  
+		<script type="text/javascript">
+
+			function locate(way,access_token){
+ 
+				if(way == 'zaitu'){
+					window.location.href="/invest/h5_detail/houseloan?status=0&access_token="+access_token;
+				}
+				if(way == 'shuhui'){
+					window.location.href="/invest/h5_detail/houseloan?status=11&access_token="+access_token;	
+				}
+			}
+			
+			//取分页信息 //TODO增加验证信息
+			function moreInfo (userId,pro_type,total,access_token) {
+				//页码计算
+				var pageIndex = parseInt($("#index").val());
+				pageIndex = pageIndex + 1;
+				$("#index").val(pageIndex);
+
+				$.ajax({
+					type: 'GET',
+				  	url: '/invest/houseloan/record/'+userId,
+				  	data: 
+				  	{ 
+				  		status: 11,  
+				  		pageIndex:pageIndex,
+			 			limit:5,
+			 			pro_type:pro_type,
+			 			access_token:access_token
+					},
+					dataType: 'json',
+				  	contentType: 'application/json',
+					success: function(data){
+						
+						if(total < 5*(pageIndex+1)){
+							$('#pageButton').css("display","none"); 
+							$('#tip').text("没有更多信息了");
+						}
+
+						for(var i = 0;i<data.value.length;i++){
+							//在原来的投资列表中动态增加
+							$("#box").last().append(
+							 	"<div id='product_list' >"
+									+ "<h2>已还款产品</h2> "
+									+ "<h3>房贷产品</h3>"
+									+ "<li>已投金额: "+data.value[i].amount +" </li>"
+									+ "<li>预期收益: "+data.value[i].profit +" </li>"
+									+ "<li>年化利率: "+data.value[i].curRate +" </li>"
+									+ "<li>到期时间: "+data.value[i].repayTime +" </li>"
+									+ "<li>还剩天数: "+data.value[i].distance +" </li>"
+									+ "<li>产品编号: "+data.value[i].productNo +" </li>"
+								+ "</div>"
+							);
+						}
+					},
+					error: function(xhr, type){
+					   $('#errorMessage').text("数据获取失败，请稍候重试");
+					}
+				});
+			}; 
+		</script>
+
+
+		<% var record = locals.invest_record %>
+		<% var total = locals.invest_total %>
+		<% var pageIndex = locals.invest_pageIndex %>
+		<% var userId = locals.invest_userId %>
+		<% var status = locals.invest_status %>
+		<% var pro_type = locals.invest_pro_type %>
+		<% var access_token = locals.invest_accesstoken %>
+		
+
+		<div style="width:100%;">
+			<div id="zaitu" onclick="locate('zaitu','<%=access_token%>')" 
+				style="width:49%;float:left;height:auto;background:#33CCCC;padding-top:15px;padding-bottom:15px;">
+				在途产品
+			</div>
+			<div id="shuhui" onclick="locate('shuhui','<%=access_token%>')" 
+				style="width:49%;float:right;height:auto;background:#33CC99;padding-top:15px;padding-bottom:15px;">
+				已赎回
+			</div>
+		</div>
+		<div style="clear:both;"/>
+
+		<h3>总条数: <%= total %></h3>
+		<h3>当前页数:<%= pageIndex %></h3>
+		<h3>当前状态:<%= status %></h3>
+		<h3>当前条数:<%= record.length %></h3>
+
+  
+  		<!--所有列表在这个div中显示-->
+		<div id="box" style="margin-bottom:100px;">
+
+		<% for(var i=0; i<record.length; i++) { 
+				if(record[i].status == '0'){
+		%>
+				<div>
+					<h2>在途产品</h2>
+					<h3>保理产品</h3>
+					<li>已投金额:<%=record[i].amount%></li>
+					<li>预期收益:<%=record[i].profit%></li>
+					<li>年化利率:<%=record[i].curRate%></li>
+					<li>到期时间:<%=record[i].repayTime%></li>
+					<li>还剩天数:<%=record[i].distance%></li>
+					<li>产品编号:<%=record[i].productNo%></li>
+				</div>
+		<%				
+		    	}else if(record[i].status == '11'){
+		%>
+				<div id="product_list">
+					<h2>已还款产品</h2>
+					<h3>保理产品</h3>
+					<li>已投金额:<%=record[i].amount%></li>
+					<li>预期收益:<%=record[i].profit%></li>
+					<li>年化利率:<%=record[i].curRate%></li>
+					<li>到期时间:<%=record[i].repayTime%></li>
+					<li>还剩天数:<%=record[i].distance%></li>
+					<li>产品编号:<%=record[i].productNo%></li>
+				</div>
+		<%    		
+		    	}
+		   } 
+		 %>
+
+		</div>
+
+		<input type="hidden" id="index" value="0"></input>
+		
+		<!-- 只有总数大于当前值  且 状态是已赎回的 -->
+		<% if(total > 5*(pageIndex+1) && status=='11'){
+		%>
+		 	<button id='pageButton' onclick="moreInfo('<%=userId%>',<%=pro_type%>,<%=total%>,'<%=access_token%>')" >加载更多</button>
+		<%	
+			}
+		%>
+
+		<div id="errorMessage" style="background:red;"></div>		   
+		<div id="tip" style="background:green;"></div>	
+		<!--inline[../../common/page/foot.ejs]-->
+	</body>
+</html>  

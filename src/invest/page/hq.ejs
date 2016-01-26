@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--inline[../../common/page/head.ejs]-->
+		<title>测试</title>
+		<link rel="stylesheet" type="text/css" href="../static/index.css?__inline">
+	</head>
+
+	<body>
+		<script src="../static/hq.js?__inline"></script>
+
+		<% var record = locals.invest_record %>
+
+		<p>在途投资</p>
+		<h2 id='hqfreeze'><%= record.hqFreeze %></h2> 
+		<p>待收利息</p>
+		<h2 id='hqpreprofit'><%= record.hqPreProfit %></h2>
+		<p>昨日收益</p>
+		<h2 id='hqlastprofit'><%= record.hqLastProfit %></h2>
+		<br>  
+  
+
+  
+
+		<% for(var i=0; i<record.recordList.length; i++) {
+			if(record.recordList[i].status == '0' || record.recordList[i].status=='20'){
+		%>
+			<h4>在途或者部分赎回</h4>
+			投资时间<li><%= record.recordList[i].investTime %></li>
+			当前利率<li><%= record.recordList[i].rate %></li>
+			昨日收益<li><%= record.recordList[i].lastProfit %></li>
+			在途投资<li><%= record.recordList[i].amount %></li>
+			<br>
+		<% 
+			}else if(record.recordList[i].status == '21'){
+        %>
+        	<h4>已赎回</h4>
+            投资时间<li><%= record.recordList[i].investTime %></li>
+            投资天数<li><%= record.recordList[i].dayNumber %></li>
+            已赎回<li><%= record.recordList[i].amount %></li>
+        <%
+            }}
+        %>
+		   
+
+		<!--inline[../../common/page/foot.ejs]-->
+		
+	</body>
+</html>  
